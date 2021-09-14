@@ -1,7 +1,8 @@
-public class ArrayBag<T>{
+public class ResizeableArrayBag<T> implements BagInterface<T>
+{
     private T[] bag;
     private int numberOfEntries = 0;
-    private int default_capacity = 50;
+    private static final int default_capacity = 50;
     public ArrayBag(){
         @SuppressWarnings("unchecked")
         T[] tempbag = (T[]) new Object[default_capacity];
