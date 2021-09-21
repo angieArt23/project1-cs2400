@@ -4,10 +4,9 @@ public class LinkedBag<T> {
 
     public boolean add(T newEntry){
         Node newNode = new Node(newEntry);
-        firstNode = newNode.next;
-        newNode = firstNode;
+        newNode.next = firstNode;
+        firstNode = newNode;
         numberOfEntries++;
-
         return true;
     }
     public T remove(){
@@ -24,6 +23,37 @@ public class LinkedBag<T> {
             tracker = firstNode.getNextNode();
         }
         return true;
+    }
+    public LinkedBag<T> Union(LinkedBag<T> bag2){
+        Node nextNode1 = firstNode;
+        Node nextNode2 = bag2.firstNode;
+        LinkedBag<T> newBag = new LinkedBag<>();
+        for(int i =0; i<this.numberOfEntries; i++){
+            newBag.add(nextNode1.getData());
+            nextNode1 = nextNode1.getNextNode();
+        }
+        for(int i =0; i<bag2.numberOfEntries; i++){
+            newBag.add(nextNode2.getData());
+            nextNode2 = nextNode2.getNextNode();
+        }
+        return newBag;
+    }
+    public T[] toArray(){
+        @SuppressWarnings("unchecked")
+        T[] result = (T[])new Object[numberOfEntries];
+        Node currentNode = firstNode;
+        for(int i=0; i<numberOfEntries && currentNode != null; i++){
+            result[i] = currentNode.getData();
+            currentNode = currentNode.getNextNode();
+        }
+        return result;
+    }
+    public void print(){
+        Node current = firstNode;
+        for(int i =0; i<numberOfEntries; i++){
+            System.out.printf("%d", current.getData());
+            current = current.getNextNode();
+        }
     }
 
     private class Node{
