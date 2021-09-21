@@ -51,7 +51,28 @@ public class ResizeableArrayBag<T>
         }
         return false;
     }
-    public ResizeableArrayBag<T> Difference(ResizeableArrayBag<T> array2){
+    
+    public ResizeableArrayBag<T> intersection(ResizeableArrayBag<T> bagTwo)
+    {
+        ResizeableArrayBag<T> intersect = new ResizeableArrayBag<>(this.numberOfEntries + bagTwo.numberOfEntries);
+        int index = 0;
+        for (int i = 0; i < this.numberOfEntries; i++)
+        {
+            for (int j = 0; j < bagTwo.numberOfEntries; j++)
+            {
+                if (this.bag[index] == bagTwo.bag[index]);
+                break;
+            }
+            index++;
+        }
+        intersect.toArray();
+        return intersect;
+            
+    }
+    
+    
+    public ResizeableArrayBag<T> Difference(ResizeableArrayBag<T> array2)
+    {
         ResizeableArrayBag<T> bagCopy = new ResizeableArrayBag<>(this.numberOfEntries+array2.numberOfEntries);
         if(this.numberOfEntries < array2.numberOfEntries){
             for(int i =0; i<this.numberOfEntries; i++){
@@ -67,7 +88,8 @@ public class ResizeableArrayBag<T>
             }
         }
         else{
-            for(int i =0; i<array2.numberOfEntries; i++){
+            for(int i =0; i<array2.numberOfEntries; i++)
+            {
                 if(this.contains(array2.bag[i])){
                     this.remove(array2.bag[i]);
                 }
