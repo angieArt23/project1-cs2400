@@ -12,7 +12,7 @@ public interface BagInterface<T>
 	public T remove();
    
 
-    public boolean remove(T anEntry);
+    	public boolean remove(T anEntry);
 	
 
 	public void clear();
@@ -25,6 +25,15 @@ public interface BagInterface<T>
    
 
 	public T[] toArray();
+	
+	    
+	public T union(T[] bag);
+
+
+    	public T intersection(T[] bag);
+
+
+   	public T difference(T[] bag);
 
 	
 } 
