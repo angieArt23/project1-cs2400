@@ -1,4 +1,4 @@
-public class BagTest{
+public class ArrayBagTest{
 
     public static void main(String[] args){
         ResizeableArrayBag<Integer> bag1 = new ResizeableArrayBag<>(9);
