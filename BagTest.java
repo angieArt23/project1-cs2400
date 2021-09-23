@@ -9,7 +9,7 @@ public class BagTest{
         for(int i =0; i<7; i++){
             bag2.add(i);
         }
-        ResizeableArrayBag<Integer> bag3 = bag1.Union(bag2);
+        ResizeableArrayBag<Integer> bag3 = bag1.intersection(bag2);
         bag3.print();
 
         

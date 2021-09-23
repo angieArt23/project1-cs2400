@@ -55,15 +55,14 @@ public class ResizeableArrayBag<T>
     public ResizeableArrayBag<T> intersection(ResizeableArrayBag<T> bagTwo)
     {
         ResizeableArrayBag<T> intersect = new ResizeableArrayBag<>(this.numberOfEntries + bagTwo.numberOfEntries);
-        int index = 0;
         for (int i = 0; i < this.numberOfEntries; i++)
         {
             for (int j = 0; j < bagTwo.numberOfEntries; j++)
             {
-                if (this.bag[index] == bagTwo.bag[index]);
-                break;
+                if (this.bag[i] == bagTwo.bag[j])
+                    intersect.add(this.bag[i]);
+
             }
-            index++;
         }
         intersect.toArray();
         return intersect;

@@ -13,16 +13,25 @@ public class LinkedBag<T> {
         if(firstNode != null){
             T data = firstNode.getData();
             firstNode = firstNode.getNextNode();
+            numberOfEntries--;
             return data;
         }
         return null;
     }
     public boolean remove(T entry){
         Node tracker = firstNode;
-        while(tracker.getData() != entry && tracker.getNextNode() != null){
-            tracker = firstNode.getNextNode();
+        Node previous = firstNode;
+        while(tracker.getData() != entry && tracker != null){
+            previous = tracker;
+            tracker = tracker.getNextNode();
         }
-        return true;
+        if(tracker.getData() ==  entry){
+            previous.setNextNode(tracker.getNextNode());
+            numberOfEntries--;
+            return true;
+        }
+        else    
+            return false;
     }
     public LinkedBag<T> Union(LinkedBag<T> bag2){
         Node nextNode1 = firstNode;
@@ -38,6 +47,57 @@ public class LinkedBag<T> {
         }
         return newBag;
     }
+    public LinkedBag<T> Difference(LinkedBag<T> array2)
+    {
+        LinkedBag<T> bagCopy = new LinkedBag<>();
+        if(this.numberOfEntries < array2.numberOfEntries){
+            Node currentNode = firstNode;
+            for(int i =0; currentNode != null && i<this.numberOfEntries && currentNode.getData() != null; i++){
+                if(array2.contains(currentNode.getData())){
+                    array2.remove(currentNode.getData());
+                }
+                else{
+                    bagCopy.add(currentNode.getData());
+                }
+                currentNode = currentNode.getNextNode();
+            }
+            currentNode = array2.firstNode;
+            for(int i =0; currentNode != null && currentNode.getData() != null && i<array2.numberOfEntries; i++){
+                bagCopy.add(currentNode.getData());
+                currentNode = currentNode.getNextNode();
+            }
+        }
+        else{
+            Node currentNode = array2.firstNode;
+            for(int i =0; currentNode != null && i<array2.numberOfEntries && currentNode.getData() != null; i++){
+                if(this.contains(currentNode.getData())){
+                    this.remove(currentNode.getData());
+                }
+                else{
+                    bagCopy.add(currentNode.getData());
+                }
+                currentNode = currentNode.getNextNode();
+            }
+            currentNode = array2.firstNode;
+            for(int i =0; currentNode != null && currentNode.getData() != null && i<this.numberOfEntries; i++){
+                bagCopy.add(currentNode.getData());
+                currentNode = currentNode.getNextNode();
+            }
+        }
+        return bagCopy;
+    }
+
+    public boolean contains(T item){
+        Node currentNode = firstNode;
+        for(int i =0; i<numberOfEntries && currentNode != null; i++){
+            if(currentNode.getData() == item){
+                return true;
+            }
+            currentNode = currentNode.getNextNode();
+        }
+        return true;
+    }
+    
     public T[] toArray(){
         @SuppressWarnings("unchecked")
         T[] result = (T[])new Object[numberOfEntries];
